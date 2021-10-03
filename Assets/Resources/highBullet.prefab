@@ -142,6 +142,6 @@ MonoBehaviour:
   hitRecovery: 80
   guradRecovery: 50
   bulletSpeed: 5
-  bulletTime: 600
+  bulletTime: 300
   damage: 2
   guardPenetration: 30

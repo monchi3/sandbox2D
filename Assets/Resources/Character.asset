@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f642122e422f0469de31a927c9f1e8, type: 3}
+  m_Name: Character
+  m_EditorClassIdentifier: 
+  characterName: tama
+  characterID: 0
+  maxhp: 100
+  walkSpeed: 5
+  jumpSpeed: 11
+  gravity: 15
+  jumpHeight: 4
+  jumpTIme: 0.45
+  jumpCurve: 0
+  atkOkisemeSkill:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  defOkisemeSkill:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  animator: {fileID: 0}

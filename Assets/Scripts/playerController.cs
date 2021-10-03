@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour
     [Header("ジャンプの表現曲線")] public AnimationCurve jumpCurve;
     [Header("攻撃スキル")] public List<Skill> atkSkillList = null;
     [Header("防御スキル")] public List<Skill> defSkillList = null;
-    
+
 
     #endregion
     #region//プライベート変数
