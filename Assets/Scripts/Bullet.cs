@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private Shooter parentShooter;
     private int aliveCount;
+    private float horizontalSpeed ;
+    private float verticalSpeed ;
 
     public playerStatus ps;
 
@@ -22,6 +24,12 @@ public class Bullet : MonoBehaviour
     [Header("’e‚ÌŽ‘±ŽžŠÔ")] public int bulletTime = 100;
     [Header("ƒ_ƒ[ƒW")]     public int damage = 0;
     [Header("ŠÑ’Ê")]         public int guardPenetration =0;
+    [Header("”­ŽËŠp“x")] public float angle;
+    
+    public enum orbitType {
+        straight
+    }
+    orbitType type; 
 
     public void DeleteThis() {
         switch (bulletID) {
@@ -59,12 +67,16 @@ public class Bullet : MonoBehaviour
     {
 
         aliveCount++;
+        if (type == orbitType.straight) {
+            horizontalSpeed = bulletSpeed * Mathf.Cos(angle);
+            verticalSpeed = bulletSpeed * Mathf.Sin(angle);
 
-        if (playerID == 1) {
-            rb.velocity = new Vector2(bulletSpeed, 0);
-        }
-        else if(playerID == 2) {
-            rb.velocity = new Vector2(-bulletSpeed, 0);
+            if (playerID == 1) {
+                rb.velocity = new Vector2(horizontalSpeed, verticalSpeed);
+            }
+            else if (playerID == 2) {
+                rb.velocity = new Vector2(-horizontalSpeed,verticalSpeed);
+            }
         }
 
         if (aliveCount > bulletTime) {

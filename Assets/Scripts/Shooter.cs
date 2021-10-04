@@ -6,16 +6,19 @@ public class Shooter : MonoBehaviour
 {
     private GameObject myself;
     private GameObject lowBullet;
+    private GameObject NeutralBullet;
     private GameObject highBullet;
     private GameObject chargeCircle;
     private playerController pc;
     private playerStatus ps;
     private SpriteRenderer anten;
     private Coroutine co;
+    
 
     public int playerID;
     private int lowBulletCount=0;
     private int highBulletCount = 0;
+
     private bool fire1, fire2, fire3,Ex;
     public int lowBulletCountLimit = 0;
     public int highBulletCountLimit = 0;
@@ -28,6 +31,7 @@ public class Shooter : MonoBehaviour
     public void LowBulletCountSub() {
         lowBulletCount--;
     }
+
     public void highBulletCountAdd() {
         highBulletCount++;       
     }
@@ -52,92 +56,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    IEnumerator LowShoot() {
-        int i = 0;
-        pc.SetIsAction(true);
-        for (i = 0; i < 3; i++) { 
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        Instantiate(lowBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
-        for (i = 0; i < 15; i++) {
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        pc.SetIsAction(false);
-    }
-    IEnumerator HighShoot() {
-        int i = 0;
-        pc.SetIsAction(true);
-        for (i = 0; i < 10; i++) { 
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        Instantiate(highBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
-        for (i = 0; i < 50; i++) { 
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        pc.SetIsAction(false);
-
-    }
-    IEnumerator ExShoot() {
-        int i = 0;
-        pc.SetIsAction(true);
-        #region //à√ì]
-        anten.enabled = true;
-        myself.GetComponent<SpriteRenderer>().sortingLayerID = 1;
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(5/60f);
-        Instantiate(chargeCircle, myself.transform);
-        yield return new WaitForSecondsRealtime(40/60f);
-        Time.timeScale = 1;
-        myself.GetComponent<SpriteRenderer>().sortingLayerID = 0;
-        
-        anten.enabled = false;
-        
-        #endregion
-        #region //î≠ê∂
-        for (i = 0; i < 13; i++) {
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        #endregion
-        #region //éùë±
-        for (i = 0; i < 90; i++) {
-            if (i % 30 == 0) {
-                Instantiate(highBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
-            }
-            else {
-                yield return new WaitForFixedUpdate();
-                if (pc.GetIsDamaged()) {
-                    yield break;
-                }
-            }
-        
-        }
-        #endregion
-        #region//çdíº
-        for (i = 0; i < 30; i++) {
-            yield return new WaitForFixedUpdate();
-            if (pc.GetIsDamaged()) {
-                yield break;
-            }
-        }
-        #endregion
-        pc.SetIsAction(false);
-    }
-
+   
     
     void Start()
     {
@@ -168,4 +87,91 @@ public class Shooter : MonoBehaviour
             Ex = Input.GetButtonDown("EX2");
         }
     }
+
+    IEnumerator LowShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        for (i = 0; i < 3; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        Instantiate(lowBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        for (i = 0; i < 15; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        pc.SetIsAction(false);
+    }
+    IEnumerator HighShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        for (i = 0; i < 10; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        Instantiate(highBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        for (i = 0; i < 50; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        pc.SetIsAction(false);
+
+    }
+    IEnumerator ExShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        #region //à√ì]
+        anten.enabled = true;
+        myself.GetComponent<SpriteRenderer>().sortingLayerID = 1;
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(5 / 60f);
+        Instantiate(chargeCircle, myself.transform);
+        yield return new WaitForSecondsRealtime(40 / 60f);
+        Time.timeScale = 1;
+        myself.GetComponent<SpriteRenderer>().sortingLayerID = 0;
+
+        anten.enabled = false;
+
+        #endregion
+        #region //î≠ê∂
+        for (i = 0; i < 13; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        #endregion
+        #region //éùë±
+        for (i = 0; i < 90; i++) {
+            if (i % 30 == 0) {
+                Instantiate(highBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+            }
+            else {
+                yield return new WaitForFixedUpdate();
+                if (pc.GetIsDamaged()) {
+                    yield break;
+                }
+            }
+
+        }
+        #endregion
+        #region//çdíº
+        for (i = 0; i < 30; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        #endregion
+        pc.SetIsAction(false);
+    }
+
 }

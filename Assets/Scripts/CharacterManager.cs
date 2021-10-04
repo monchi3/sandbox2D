@@ -156,7 +156,7 @@ public class CharacterManager : MonoBehaviour
                 if (defSkill.GetSkillType() == Skill.Type.parry) {
 
                     isContinue = false;
-
+                    defps.CurrentExAdd(10);
                     Text.sprite = okisemeText[3];
                     Text.enabled = true;
 
@@ -172,6 +172,7 @@ public class CharacterManager : MonoBehaviour
                 }
                 else if (defSkill.GetSkillType() == Skill.Type.Defguard) {
 
+                    
                     isContinue = true;
                     Text.sprite = okisemeText[2];
                     Text.enabled = true;
@@ -239,6 +240,7 @@ public class CharacterManager : MonoBehaviour
                     isContinue = false;
                     Text.sprite = okisemeText[2];
                     Text.enabled = true;
+
 
                 }
                 else if (defSkill.GetSkillType() == Skill.Type.Invinsibility) {
