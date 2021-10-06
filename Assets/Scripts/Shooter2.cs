@@ -4,53 +4,25 @@ using UnityEngine;
 
 public class Shooter2 : MonoBehaviour
 {
-    private enum skillType {
-        LowShoot,
-        MiddleShoot,
-        Shoot,
-        HighShoot,
-        CharacterAction,
-        ExShoot
-    }
-    public int playerID=0;
-    private skillType type;
-    private GameObject bullet;
-    private bool fire=false;
-    private float CT=0;
-    private int bulletCount = 0;
-    private int bulletCountLimit = 0;
 
-    public void bulletCountAdd() {
-        bulletCount++;
+    public int playerID=0;
+    private List<GameObject> bullet;
+    private List<bool> fire;
+    private List<float> CT;
+    private List<int> bulletCount ;
+    private List<int> bulletCountLimit;
+
+    public void bulletCountAdd(int skillNum,int bulletNum) {
+        bulletCount[skillNum]+=bulletNum;
     }
-    public void bulletCountSub() {
-        bulletCount--;
+    public void bulletCountSub(int skillNum,int bulletNum) {
+        bulletCount[skillNum]-=bulletNum;
     }
 
     public void Shoot() {
-        if(playerID == 1) {
-            if(type == skillType.LowShoot) {
-                if (Input.GetButtonDown("Fire1")) {
 
-                }
-            }
-            else if(type == skillType.MiddleShoot) {
-                if (Input.GetButtonDown("Fire2")) {
-
-                }
-            }
-            else if(type == skillType.Shoot) {
-                if (Input.GetButtonDown("Fire3")) {
-
-                }
-            }
-            else if(type == skillType.HighShoot) {
-                if (Input.GetButtonDown("Fire4")) {
-                    
-                }
-            }
-        }
     }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +32,21 @@ public class Shooter2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(playerID == 1) {
+            fire[0] = Input.GetButtonDown("Fire1");
+            fire[1] = Input.GetButtonDown("Fire2");
+            fire[2] = Input.GetButtonDown("Fire3");
+            fire[3] = Input.GetButtonDown("Fire4");
+            fire[4] = Input.GetButtonDown("CharacterAction");
+            fire[5] = Input.GetButtonDown("EX");
+        }
+        else if(playerID == 2) {
+            fire[0] = Input.GetButtonDown("Fire12");
+            fire[1] = Input.GetButtonDown("Fire22");
+            fire[2] = Input.GetButtonDown("Fire32");
+            fire[3] = Input.GetButtonDown("Fire42");
+            fire[4] = Input.GetButtonDown("CharacterAction2");
+            fire[5] = Input.GetButtonDown("EX2");
+        }
     }
 }

@@ -35,6 +35,9 @@ public class playerController : MonoBehaviour
     private bool isOkiseme = false;
     private float isInvasion = 1;
 
+    private state currentState;
+    private subState currentSubState;
+
     private float jumpPos = 0.0f;
     private float jumpTime = 0f;
     private float xSpeed;
@@ -48,8 +51,34 @@ public class playerController : MonoBehaviour
     private Animator anim = null;
     private playerStatus ps = null;
     private Shooter shooter = null;
-    
-    
+
+
+    #endregion
+    #region//ó‘Ô‘JˆÚ•Ï”
+    public enum state {
+        stand,
+        run,
+        inAir,
+        shoot,
+        guard,
+        block,
+        lean,
+        down
+    }
+    public enum subState {
+        action,
+        notAction,
+        damage
+    }
+
+    private void SetSubState() {
+        if(currentState == state.stand || currentState == state.run || currentState == state.inAir) {
+            currentSubState = subState.action;
+        }
+        else if(currentState == state.shoot || currentState == state.block) {
+
+        }
+    }
     #endregion
 
     // Start is called before the first frame update
