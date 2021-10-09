@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8d4d49462d57a44b8573653c8746a3, type: 3}
+  m_Name: Standard2
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 5542145660257145995, guid: 801496a9f5f27ab42841b3449a487498, type: 3}
+  CT: 7
+  bulletCountLimit: 100
+  skillName: "\u4E09\u9023\u6C17\u5F3E"

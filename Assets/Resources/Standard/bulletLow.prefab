@@ -136,12 +136,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 0}
-  bulletID: 1
+  skillNum: 0
   playerID: 0
   hitEffectID: 0
   hitRecovery: 40
   guradRecovery: 50
   bulletSpeed: 15
   bulletTime: 240
-  damage: 1
+  damage: 2
   guardPenetration: 5
+  angle: 0
+  type: 0

@@ -40,7 +40,7 @@ public class ExBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
-        if (collision.tag == "bullet" && bullet.bulletID == 1) {
+        if (collision.tag == "bullet" && bullet.skillNum == 0) {
             if (bullet.playerID == 1) {
                 bullet.ps.CurrentExAdd(increaseEx);
                 Destroy(this.gameObject);

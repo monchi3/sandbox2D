@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,8 +34,8 @@ public class playerController : MonoBehaviour
     private bool isOkiseme = false;
     private float isInvasion = 1;
 
-    private state currentState;
-    private subState currentSubState;
+    private animState currentAnimState;
+    private animSubState currentAnimSubState;
 
     private float jumpPos = 0.0f;
     private float jumpTime = 0f;
@@ -54,8 +53,8 @@ public class playerController : MonoBehaviour
 
 
     #endregion
-    #region//状態遷移変数
-    public enum state {
+    #region//アニメーション状態遷移変数
+    public enum animState {
         stand,
         run,
         inAir,
@@ -63,22 +62,16 @@ public class playerController : MonoBehaviour
         guard,
         block,
         lean,
-        down
+        down,
+        inAirDamage
     }
-    public enum subState {
+    public enum animSubState {
         action,
         notAction,
         damage
     }
 
-    private void SetSubState() {
-        if(currentState == state.stand || currentState == state.run || currentState == state.inAir) {
-            currentSubState = subState.action;
-        }
-        else if(currentState == state.shoot || currentState == state.block) {
-
-        }
-    }
+    
     #endregion
 
     // Start is called before the first frame update
@@ -96,48 +89,6 @@ public class playerController : MonoBehaviour
     /// Y成分で必要な計算をし、速度を返す。
     /// </summary>
     /// <returns>Y軸の速さ</returns>
-    private float GetYSpeed() {
-
-        float verticalKey = Input.GetAxisRaw("Vertical");
-        float ySpeed = -gravity;
-
-        if (isGround) {
-            if (verticalKey > 0) {
-                ySpeed = jumpSpeed;
-                jumpPos = transform.position.y;
-                isJump = true;
-            }
-            else {
-                isJump = false;
-            }
-
-        }
-        else if (isJump) {
-            bool pushUpKey = verticalKey > 0;
-            bool canHeight = jumpPos + jumpHeight > transform.position.y;
-            bool canTime = jumpLimitTime > jumpTime;
-
-            if (pushUpKey && canHeight && canTime && !isHead) {
-                ySpeed = jumpSpeed;
-                jumpTime += Time.deltaTime;
-            }
-            else {
-                isJump = false;
-                jumpTime = 0f;
-            }
-        }
-
-        if (isJump) {
-            ySpeed *= jumpCurve.Evaluate(jumpTime);
-        }
-
-        return (ySpeed * isInvasion);
-
-    }
-    /// <summary>
-    /// X成分で必要な計算をし、速度を返す。
-    /// </summary>
-    /// <returns>X軸の速さ</returns>
     private float Jumper() {
         float verticalKey=0;
         float ySpeed = -gravity;
@@ -148,6 +99,7 @@ public class playerController : MonoBehaviour
             if (verticalKey > 0 && !isJump && !isAction) {
                 jumpPos = transform.position.y;
                 isJump = true;
+                
             }
         }
 
@@ -191,6 +143,7 @@ public class playerController : MonoBehaviour
 
             transform.localScale = new Vector3(3, 3, 1);            
             isRun = true;
+            if(isGround)currentAnimState = animState.run;
             xSpeed = walkSpeed;
 
         }
@@ -199,7 +152,9 @@ public class playerController : MonoBehaviour
                 backSpeed = 0;
             }
             transform.localScale = new Vector3(3, 3, 1);
+            
             isRun = true;
+            if (isGround) currentAnimState = animState.run;
             xSpeed = backSpeed;
         }
         else {
@@ -238,6 +193,7 @@ public class playerController : MonoBehaviour
 
         if (guardKey && !isAction && isGround && !ps.isGuardBreakGet()) {
             isGuard = true;
+            currentAnimState = animState.guard;
         }
         else {
             isGuard = false;
@@ -257,6 +213,30 @@ public class playerController : MonoBehaviour
         anim.SetBool("blocking", isBlocking);
 
     }
+    private void DitectStand() {
+        if (playerID == 1) {
+            if (currentAnimSubState == animSubState.notAction && isGround && Input.GetAxisRaw("Horizontal") == 0) {
+                currentAnimState = animState.stand;
+            }
+        }
+        else if (playerID == 2) {
+            if (currentAnimSubState == animSubState.notAction && isGround && Input.GetAxisRaw("Horizontal2") == 0) {
+                currentAnimState = animState.stand;
+            }
+        }
+    }
+    private void SetSubAnimState() {
+        if (currentAnimState == animState.stand || currentAnimState == animState.run || currentAnimState == animState.inAir) {
+            currentAnimSubState = animSubState.notAction;
+        }
+        else if (currentAnimState == animState.shoot || currentAnimState == animState.block || currentAnimState == animState.guard) {
+            currentAnimSubState = animSubState.action;
+        }
+        else if(currentAnimState == animState.lean || currentAnimState == animState.down) {
+            currentAnimSubState = animSubState.damage;
+        }
+    }
+    
     #endregion
 
     #region //変数設定取得関数
@@ -301,16 +281,31 @@ public class playerController : MonoBehaviour
             return false;
         }
     }
+
+    public animState GetAnimState() {
+        return currentAnimState;
+    }
+    public animSubState GetAnimSubState() {
+        return currentAnimSubState;
+    }
     #endregion
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(currentAnimState + "," + currentAnimSubState + "," + isGround);
+        SetSubAnimState();
+        DitectStand();
         isGround = ground.IsGround();
         isHead = head.IsGround();
         isOnPlatform = ground.IsOnPlatform();
         GetOnFloor = ground.GetFloor();
-        
+
+        if (!isGround) {
+            currentAnimState = animState.inAir;
+        }
+
         xSpeed = GetXSpeed();
         ySpeed = Jumper();
         

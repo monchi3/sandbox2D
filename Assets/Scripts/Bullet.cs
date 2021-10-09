@@ -7,14 +7,14 @@ public class Bullet : MonoBehaviour
     private GameObject parent;
     private int myCount;
     private Rigidbody2D rb;
-    private Shooter parentShooter;
+    private Shooter2 parentShooter;
     private int aliveCount;
     private float horizontalSpeed ;
     private float verticalSpeed ;
 
     public playerStatus ps;
 
-    public int bulletID; //’e‚ÌID
+    public int skillNum; //‚Ç‚ÌƒXƒLƒ‹‚Å¶¬‚³‚ê‚½‚©
     public int playerID; //’e‚Ì‚¿å‚ÌID
     public int hitEffectID; //‚â‚ç‚êó‘Ô‚ÌID
     public int hitRecovery; //‚Ì‚¯‚¼‚èd’¼
@@ -24,25 +24,16 @@ public class Bullet : MonoBehaviour
     [Header("’e‚Ì‘±ŠÔ")] public int bulletTime = 100;
     [Header("ƒ_ƒ[ƒW")]     public int damage = 0;
     [Header("ŠÑ’Ê")]         public int guardPenetration =0;
-    [Header("”­ËŠp“x")] public float angle;
+    [Header("”­ËŠp“x")]    public float angle;
     
     public enum orbitType {
         straight
     }
-    orbitType type; 
+    public orbitType type; 
 
     public void DeleteThis() {
-        switch (bulletID) {
-            case 1:
-                parentShooter.LowBulletCountSub();
-                Destroy(this.gameObject);
-                break;
-            case 2:
-                parentShooter.highBulletCountSub();
-                Destroy(this.gameObject);
-                break;
-
-        }
+        parentShooter.bulletCountSub(skillNum, 1);
+        Destroy(this.gameObject);
     }
 
     public int GetDamage() {
@@ -51,13 +42,17 @@ public class Bullet : MonoBehaviour
     public int GetPenetration() {
         return guardPenetration;
     }
+
+    public void SetAngle(int i) {
+        angle = i;
+    }
     
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         parent = transform.parent.gameObject;
-        parentShooter = parent.GetComponent<Shooter>();
+        parentShooter = parent.GetComponent<Shooter2>();
         playerID = parentShooter.playerID;
         ps = transform.parent.parent.GetComponent<playerStatus>();
     }

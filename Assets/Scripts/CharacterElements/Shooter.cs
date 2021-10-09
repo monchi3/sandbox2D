@@ -23,6 +23,11 @@ public class Shooter : MonoBehaviour
     public int lowBulletCountLimit = 0;
     public int highBulletCountLimit = 0;
 
+    private List<GameObject> bullet;
+    private List<bool> fire;
+    private List<float> CT;
+    private List<int> bulletCount;
+    private List<int> bulletCountLimit;
 
 
     public void LowBulletCountAdd() {

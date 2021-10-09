@@ -198,6 +198,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13426878}
   m_CullTransparentMesh: 1
+--- !u!1 &25440137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8760941634312968284, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}
+  m_PrefabInstance: {fileID: 8760941634819095346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &25440138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25440137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a72ad519bea3e3d4aa0b6020e400f9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  shootSkill:
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  myself: {fileID: 0}
+  pc: {fileID: 0}
+  ps: {fileID: 0}
+  skillName:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  bullet:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fire: 000000000000
+  CT:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  bulletCountLimit: 000000000000000000000000000000000000000000000000
+  bulletCount: 000000000000000000000000000000000000000000000000
+  currentCT:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!114 &79701069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8760941633640177816, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}
@@ -1164,6 +1223,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &669782265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 669782266}
+  m_Layer: 5
+  m_Name: CDTimers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &669782266
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669782265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1112856247}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &678228604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1753,7 @@ RectTransform:
   - {fileID: 2140245608}
   - {fileID: 1544566248}
   - {fileID: 255741094}
+  - {fileID: 669782266}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3726,6 +3821,10 @@ PrefabInstance:
     - target: {fileID: 8760941634260913015, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760941634312968258, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8760941634312968284, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}
       propertyPath: m_Layer
