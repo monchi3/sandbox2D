@@ -218,9 +218,9 @@ MonoBehaviour:
   playerID: 1
   shootSkill:
   - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
-  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
-  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
-  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: a39d2b83d257b29419db2720544c9a4d, type: 2}
+  - {fileID: 11400000, guid: 4e4e8116f10643f4faf6c485ad3a9b1a, type: 2}
+  - {fileID: 11400000, guid: 6a5d434ab5f59b94185384432ef182c2, type: 2}
   - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
   - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
   myself: {fileID: 0}

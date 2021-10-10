@@ -46,6 +46,9 @@ public class Bullet : MonoBehaviour
     public void SetAngle(int i) {
         angle = i;
     }
+    public void SetSkillNum(int i) {
+        skillNum = 1;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -63,8 +66,8 @@ public class Bullet : MonoBehaviour
 
         aliveCount++;
         if (type == orbitType.straight) {
-            horizontalSpeed = bulletSpeed * Mathf.Cos(angle);
-            verticalSpeed = bulletSpeed * Mathf.Sin(angle);
+            horizontalSpeed = bulletSpeed * Mathf.Cos(angle * (Mathf.PI / 180));
+            verticalSpeed = bulletSpeed * Mathf.Sin(angle * (Mathf.PI / 180));
 
             if (playerID == 1) {
                 rb.velocity = new Vector2(horizontalSpeed, verticalSpeed);

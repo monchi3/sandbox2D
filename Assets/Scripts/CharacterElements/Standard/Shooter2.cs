@@ -38,11 +38,11 @@ public class Shooter2 : MonoBehaviour
         }
 
         if (fire[2]) {
-
+            StartCoroutine("highShoot");
         }
 
         if (fire[3]) {
-
+            StartCoroutine("NeutralShoot");
         }
 
         if (fire[4]) {
@@ -72,6 +72,7 @@ public class Shooter2 : MonoBehaviour
         }
     }
     public void CoolDowner() {
+        Debug.Log(currentCT[0]);
 
         int i;
         for (i = 0; i < 6; i++) {
@@ -127,7 +128,6 @@ public class Shooter2 : MonoBehaviour
         }
         pc.SetIsAction(false);
     }
-
     IEnumerator middleShoot() {
         int i = 0;
         pc.SetIsAction(true);
@@ -137,9 +137,15 @@ public class Shooter2 : MonoBehaviour
                 yield break;
             }
         }
-        GameObject a = Instantiate(bullet[1], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
-        a.GetComponent<Bullet>().SetAngle(30);
-        bulletCountAdd(1, 1);
+        GameObject b3 = Instantiate(bullet[1], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        b3.GetComponent<Bullet>().SetSkillNum(1);
+        GameObject b1 = Instantiate(bullet[1], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        b1.GetComponent<Bullet>().SetAngle(10);
+        b1.GetComponent<Bullet>().SetSkillNum(1);
+        GameObject b2 = Instantiate(bullet[1], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        b2.GetComponent<Bullet>().SetAngle(-10);
+        b2.GetComponent<Bullet>().SetSkillNum(1);
+        bulletCountAdd(1, 3);
         currentCT[1] = CT[1];
         for (i = 0; i < 15; i++) {
             yield return new WaitForFixedUpdate();
@@ -149,4 +155,55 @@ public class Shooter2 : MonoBehaviour
         }
         pc.SetIsAction(false);
     }
+    IEnumerator highShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        for (i = 0; i < 9; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        Instantiate(bullet[2], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        bulletCountAdd(2, 1);
+        currentCT[2] = CT[2];
+        for (i = 0; i < 20; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        pc.SetIsAction(false);
+    }
+    IEnumerator NeutralShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        for (i = 0; i < 8; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        Instantiate(bullet[3], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+        bulletCountAdd(3, 1);
+        currentCT[3] = CT[3];
+        for (i = 0; i < 22; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        pc.SetIsAction(false);
+    }
+    IEnumerator CharacterAction() {
+        int i = 0;
+        pc.SetIsAction(true);
+        for (i = 0; i < 3; i++) {
+            yield return new WaitForFixedUpdate();
+        }
+
+        pc.SetIsAction(false);
+
+    }
 }
+

@@ -294,7 +294,6 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(currentAnimState + "," + currentAnimSubState + "," + isGround);
         SetSubAnimState();
         DitectStand();
         isGround = ground.IsGround();
