@@ -41,6 +41,8 @@ public class playerController : MonoBehaviour
     private float jumpTime = 0f;
     private float xSpeed;
     private float ySpeed;
+    private float skillXspeed = 0;
+    private float skillYspeed = 0;
     private float originGravity=0;
 
     private GameObject enemy;
@@ -281,7 +283,9 @@ public class playerController : MonoBehaviour
             return false;
         }
     }
-
+    public void SetSkillXspeed(float i) {
+        skillXspeed = i;
+    }
     public animState GetAnimState() {
         return currentAnimState;
     }
@@ -310,12 +314,12 @@ public class playerController : MonoBehaviour
         
         SetAnimation();
 
-        shooter.Shoot();
+        
         GetOff();
         Guard();
+        shooter.Shoot();
 
-        
-        rb.velocity = new Vector2(xSpeed,ySpeed);
+        rb.velocity = new Vector2(xSpeed + skillXspeed,ySpeed + skillYspeed);
         //this.gameObject.transform.position =new Vector3(Mathf.Clamp(this.gameObject.transform.position.x, -8, 8), this.gameObject.transform.position.y, 0f);
 
     }
@@ -325,7 +329,6 @@ public class playerController : MonoBehaviour
             isTouchingWall = true;
         }
     }
-
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.tag == "wall") {
             isTouchingWall = false;
@@ -341,7 +344,6 @@ public class playerController : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision) {
         if(collision.gameObject.tag == "Respawn") {
             if(playerID == 1) {

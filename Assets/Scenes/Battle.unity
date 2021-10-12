@@ -221,8 +221,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a39d2b83d257b29419db2720544c9a4d, type: 2}
   - {fileID: 11400000, guid: 4e4e8116f10643f4faf6c485ad3a9b1a, type: 2}
   - {fileID: 11400000, guid: 6a5d434ab5f59b94185384432ef182c2, type: 2}
-  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
-  - {fileID: 11400000, guid: e14811f2d9835bb45a514230593c6ee8, type: 2}
+  - {fileID: 11400000, guid: 67df139906a918d4c921d5ace2118280, type: 2}
+  - {fileID: 11400000, guid: 55d2dea964866ea4f80b271f8f18aac6, type: 2}
   myself: {fileID: 0}
   pc: {fileID: 0}
   ps: {fileID: 0}
@@ -257,6 +257,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  ExBullet: {fileID: 7139284998518512164, guid: 16cb5548f9359984da97b97f6253387b, type: 3}
 --- !u!114 &79701069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8760941633640177816, guid: 92e7cd9480e1c73489be7e4a6c1d82c3, type: 3}

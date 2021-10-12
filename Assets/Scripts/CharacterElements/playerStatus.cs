@@ -93,6 +93,7 @@ public class playerStatus : MonoBehaviour
     /// </summary>
     /// <param name="collision"></param>
     /// <param name="hitEffectID"></param>
+    /// 
     private void Defence(Collider2D collision,int hitEffectID) {
         if (collision.tag == "bullet" && collision.GetComponent<Bullet>().playerID != playerID && canHit) {
 
@@ -143,6 +144,9 @@ public class playerStatus : MonoBehaviour
             }
 
         }
+    }
+    public void SetCanHit(bool i) {
+        canHit = i;
     }
 
     // Start is called before the first frame update

@@ -8,7 +8,7 @@ public class Shooter2 : MonoBehaviour
     public int playerID=0;
     public List<ShootSkill> shootSkill;
 
-    [SerializeField]private GameObject myself;
+    [SerializeField] private GameObject myself;
     [SerializeField] private playerController pc;
     [SerializeField] private playerStatus ps;
 
@@ -20,8 +20,11 @@ public class Shooter2 : MonoBehaviour
 
     [SerializeField] private List<int> bulletCount;
     [SerializeField] private List<float> currentCT;
+    
+    private SpriteRenderer anten;
+    private GameObject chargeCircle;
 
-
+    public GameObject ExBullet;
     public void bulletCountAdd(int skillNum,int bulletNum) {
         bulletCount[skillNum]+=bulletNum;
     }
@@ -46,11 +49,11 @@ public class Shooter2 : MonoBehaviour
         }
 
         if (fire[4]) {
-
+            StartCoroutine("CharacterAction");
         }
 
         if (fire[5]) {
-
+            StartCoroutine("ExShoot");
         }
     }
     public void GetFireButton() {
@@ -60,7 +63,8 @@ public class Shooter2 : MonoBehaviour
             fire[2] = Input.GetButtonDown("Fire3") && !pc.GetIsAction() && bulletCount[2] < bulletCountLimit[2] && currentCT[2] == 0;
             fire[3] = Input.GetButtonDown("Fire4") && !pc.GetIsAction() && bulletCount[3] < bulletCountLimit[3] && currentCT[3] == 0;
             fire[4] = Input.GetButtonDown("CharacterAction") && !pc.GetIsAction() && bulletCount[4] < bulletCountLimit[4] && currentCT[4] == 0;
-            fire[5] = Input.GetButtonDown("EX") && !pc.GetIsAction() && bulletCount[5] < bulletCountLimit[5] && currentCT[5] == 0;
+            fire[5] = Input.GetButtonDown("EX") && !pc.GetIsAction() && bulletCount[5] < bulletCountLimit[5] && currentCT[5] == 0 
+                && ps.canExShoot();
         }
         else if (playerID == 2) {
             fire[0] = Input.GetButtonDown("Fire12") && !pc.GetIsAction() && bulletCount[0] < bulletCountLimit[0] && currentCT[0] == 0;
@@ -68,11 +72,13 @@ public class Shooter2 : MonoBehaviour
             fire[2] = Input.GetButtonDown("Fire32") && !pc.GetIsAction() && bulletCount[2] < bulletCountLimit[2] && currentCT[2] == 0;
             fire[3] = Input.GetButtonDown("Fire42") && !pc.GetIsAction() && bulletCount[3] < bulletCountLimit[3] && currentCT[3] == 0;
             fire[4] = Input.GetButtonDown("CharacterAction2") && !pc.GetIsAction() && bulletCount[4] < bulletCountLimit[4] && currentCT[4] == 0;
-            fire[5] = Input.GetButtonDown("EX2") && !pc.GetIsAction() && bulletCount[5] < bulletCountLimit[5] && currentCT[5] == 0;
+            fire[5] = Input.GetButtonDown("EX2") && !pc.GetIsAction() && bulletCount[5] < bulletCountLimit[5] && currentCT[5] == 0 
+                && ps.canExShoot();
+
         }
     }
     public void CoolDowner() {
-        Debug.Log(currentCT[0]);
+        
 
         int i;
         for (i = 0; i < 6; i++) {
@@ -89,6 +95,8 @@ public class Shooter2 : MonoBehaviour
         myself = transform.parent.gameObject;
         pc = myself.GetComponent<playerController>();
         ps = myself.GetComponent<playerStatus>();
+        anten = GameObject.Find("Anten").GetComponent<SpriteRenderer>();
+        chargeCircle = Resources.Load("chargeParticle") as GameObject;
 
         for (i = 0; i < 6; i++) {
             skillName[i] = shootSkill[i].GetSkillName();
@@ -201,9 +209,74 @@ public class Shooter2 : MonoBehaviour
         for (i = 0; i < 3; i++) {
             yield return new WaitForFixedUpdate();
         }
-
+        Debug.Log("aaaa");
+        ps.SetCanHit(false);
+        for (i = 0; i < 15; i++) {
+            yield return new WaitForFixedUpdate();
+            pc.SetSkillXspeed(7f);
+        }
+        pc.SetSkillXspeed(0f);
+        ps.SetCanHit(true);
+        currentCT[4] = CT[4];
+        for (i = 0; i < 6; i++) {
+            yield return new WaitForFixedUpdate();
+        }
         pc.SetIsAction(false);
 
     }
+    IEnumerator ExShoot() {
+        int i = 0;
+        pc.SetIsAction(true);
+        ps.useExShoot();
+        #region //à√ì]
+        anten.enabled = true;
+        myself.GetComponent<SpriteRenderer>().sortingLayerID = 1;
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(5 / 60f);
+        Instantiate(chargeCircle, myself.transform);
+        yield return new WaitForSecondsRealtime(40 / 60f);
+        Time.timeScale = 1;
+        myself.GetComponent<SpriteRenderer>().sortingLayerID = 0;
+
+        anten.enabled = false;
+
+        #endregion
+        #region //î≠ê∂
+        for (i = 0; i < 13; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        #endregion
+        #region //éùë±
+        for (i = 0; i < 90; i++) {
+            if (i == 0 || i == 30) {
+                Instantiate(bullet[5], this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+            }
+            else if(i == 60) {
+                Instantiate(ExBullet, this.gameObject.transform.position, this.gameObject.transform.rotation, gameObject.transform);
+            }
+            else {
+                yield return new WaitForFixedUpdate();
+                if (pc.GetIsDamaged()) {
+                    yield break;
+                }
+            }
+
+        }
+        #endregion
+        #region//çdíº
+        for (i = 0; i < 30; i++) {
+            yield return new WaitForFixedUpdate();
+            if (pc.GetIsDamaged()) {
+                yield break;
+            }
+        }
+        #endregion
+        pc.SetIsAction(false);
+    }
+
 }
+
 
